@@ -50,6 +50,7 @@
                                             <link href="includes/style.css" rel="stylesheet" type="text/css"/>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
                                             <input type="button" value="Ajouter" id="saveReg" name="saveReg" onclick="addRegion()" class="btn btn-success"/>                    
+                                            <input type="hidden" name="region" id="region" value="" />
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +75,6 @@
                                             <tbody id="tbody">
                                                 <% for (Region r : rs.findAll()) {%>
                                                 <tr>
-                                                    <input type="hidden" name="region" id="region" value="<%= r.getId() %>" />
                                                     <td><%= r.getNom()%></td>
                                                     <td><Button onclick="updateRegion(<%=r.getId()%>, '<%= r.getNom()%>')" class="btn btn-info updateR" >Modifier</Button></td>
                                                     <td><Button onclick="deleteRegion(<%=r.getId()%>)" class="btn btn-danger deleteR" >Supprimer</Button></td>
