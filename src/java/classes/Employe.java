@@ -22,14 +22,14 @@ public class Employe {
     private String nom;
     private String prenom;
     private String email;
-    private String function;
+    private String fonction;
     private String password;
 
-    public Employe(String nom, String prenom, String email, String function, String password) {
+    public Employe(String nom, String prenom, String email, String fonction, String password) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.function = function;
+        this.fonction = fonction;
         this.password = password;
     }
 
@@ -68,12 +68,12 @@ public class Employe {
         this.email = email;
     }
 
-    public String getFunction() {
-        return function;
+    public String getFonction() {
+        return fonction;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
     }
 
     public String getPassword() {
