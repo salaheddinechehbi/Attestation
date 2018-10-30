@@ -3,6 +3,7 @@
     Created on : 30 oct. 2018, 16:49:47
     Author     : Sinponzakra
 --%>
+<%@page import="classes.Employe"%>
 <%@page import="service.EmployeService"%>
 <%@page import="classes.Region" %>
 <%@page import="service.RegionService" %>
@@ -45,6 +46,7 @@
                                     <div class="card-header border-bottom">
                                         <h6 class="m-0">Ajouter un Employe</h6>
                                     </div>
+                                    <input id="operation" type="hidden" name="operation" value="add" v="" />
                                     <div class="card-body p-0 pb-3">
                                         <div class="form-group col-md-4">
                                             <label>Nom :</label>
@@ -68,7 +70,7 @@
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <input type="button" value="Ajouter" id="save" name="save" class="btn btn-success"/>                    
+                                            <button id="save" class="btn btn-success">Ajouter</button>                    
                                         </div>
                                     </div>
                                 </div>
@@ -94,16 +96,18 @@
                                                     <th>Supprimer</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tbody">
+                                            <tbody id="container">
+                                                <% for (Employe e : es.findAll()) {%>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td><Button class="btn btn-info updateR" >Modifier</Button></td>
-                                                    <td><Button class="btn btn-danger deleteR" >Supprimer</Button></td>
+                                                    <td><%= e.getNom()%></td>
+                                                    <td><%= e.getPrenom()%></td>
+                                                    <td><%= e.getEmail()%></td>
+                                                    <td><%= e.getFonction()%></td>
+                                                    <td><%= e.getPassword()%></td>
+                                                    <td><Button  class="btn btn-info updateR" v="<%= e.getId()%>">Modifier</Button></td>
+                                                    <td><Button  class="btn btn-danger deleteR" v="<%= e.getId()%>">Supprimer</Button></td>
                                                 </tr>
+                                                <% }%>
                                             </tbody>
                                         </table>
                                     </div>
