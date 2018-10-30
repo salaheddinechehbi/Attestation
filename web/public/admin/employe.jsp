@@ -11,18 +11,18 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
-    <%@include file="header_scripts.jsp" %>
+    <%@include file="includes/header_scripts.jsp" %>
   </head>
   <body class="h-100">
     <div class="container-fluid">
       <div class="row">
         <!-- Main Sidebar -->
-        <%@include file="sideBarMenu.jsp" %>
+        <%@include file="includes/sideBarMenu.jsp" %>
         <!-- End Main Sidebar -->
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
           <div class="main-navbar sticky-top bg-white">
             <!-- Main Navbar -->
-            <%@include file="headerMenu.jsp" %>
+            <%@include file="includes/headerMenu.jsp" %>
           </div>
           <!-- / .main-navbar -->
           <div class="main-content-container container-fluid px-4">
@@ -121,7 +121,7 @@
         </main>
       </div>
     </div>
-    <%@include file="footer_scripts.jsp" %>
+    <%@include file="includes/footer_scripts.jsp" %>
     <script>
         function fe(){
             swal("Bien Ajouté!", "", "success");

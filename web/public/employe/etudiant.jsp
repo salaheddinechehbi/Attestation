@@ -1,28 +1,28 @@
 <%-- 
-    Document   : region
-    Created on : 28 oct. 2018, 22:49:47
+    Document   : etudiant
+    Created on : 28 oct. 2018, 22:20:41
     Author     : salah
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!doctype html>
 <html class="no-js h-100" lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Shards Dashboard Lite - Free Bootstrap Admin Template – DesignRevision</title>
-    <%@include file="header_scripts.jsp" %>
+    <%@include file="includes/header_scripts.jsp" %>
   </head>
   <body class="h-100">
     <div class="container-fluid">
       <div class="row">
         <!-- Main Sidebar -->
-        <%@include file="sideBarMenu.jsp" %>
+        <%@include file="includes/sideBarMenu.jsp" %>
         <!-- End Main Sidebar -->
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
           <div class="main-navbar sticky-top bg-white">
             <!-- Main Navbar -->
-            <%@include file="headerMenu.jsp" %>
+            <%@include file="includes/headerMenu.jsp" %>
           </div>
           <!-- / .main-navbar -->
           <div class="main-content-container container-fluid px-4">
@@ -93,7 +93,7 @@
               </div>
             </div>
             <!-- End Default Light Table -->
-           
+            
           </div>
           <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
             <ul class="nav">
@@ -120,6 +120,6 @@
         </main>
       </div>
     </div>
-    <%@include file="footer_scripts.jsp" %>
+            <%@include file="includes/footer_scripts.jsp" %>
   </body>
 </html>
