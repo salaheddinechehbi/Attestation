@@ -6,6 +6,8 @@
 package controller;
 
 import classes.Employe;
+import classes.EmployeEtablissement;
+import classes.EmployeEtablissementPK;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +17,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.EmployeEtablissementService;
 import service.EmployeService;
+import service.EtablissementService;
 
 /**
  *
@@ -41,26 +45,42 @@ public class AddEmploye extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String fonction = request.getParameter("fonction");
-       
+        int etab_id = Integer.parseInt(request.getParameter("etab"));
+        String dated = request.getParameter("dated").replace("-", "/");
+        String datef = request.getParameter("datef").replace("-", "/");
+        Date df = null;
+        if(!datef.isEmpty()){
+            df = new Date(datef);
+        }
+        
         String operation = request.getParameter("operation");    
 
         EmployeService  es = new EmployeService();
+        EmployeEtablissementService ets = new EmployeEtablissementService();
+        EtablissementService ts = new EtablissementService();
+        
         System.out.println(operation);
         if(operation.equals("add")){
-            es.create(new Employe(nom, prenom, email,fonction,password));
+           int emp_id = es.createWithIdFeedBack(new Employe(nom, prenom, email,fonction,password));
+           ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
+            
         }else if(operation.equals("update")){
-            String id = request.getParameter("id");
-            Employe e = es.findById(Integer.parseInt(id));
+            int emp_id = Integer.parseInt(request.getParameter("id"));
+            Employe e = es.findById(emp_id);
             e.setNom(nom);
             e.setPrenom(prenom);
             e.setEmail(email);
             e.setPassword(password);
             e.setFonction(fonction);
             es.update(e);
+            ets.delete(ets.findbyEmployeId(emp_id));
+            ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
+
+            
         }
         response.setContentType("application/json");
         Gson g = new Gson();
-        g.toJson(es.findAll(), response.getWriter());
+        g.toJson(ets.findAll(), response.getWriter());
         
     }
 

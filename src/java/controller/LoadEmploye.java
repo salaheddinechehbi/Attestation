@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.EmployeEtablissementService;
 import service.EmployeService;
 
 /**
@@ -35,10 +36,10 @@ public class LoadEmploye extends HttpServlet {
             throws ServletException, IOException {
         
         String id = request.getParameter("id");
-        EmployeService es = new EmployeService();
+        EmployeEtablissementService ets = new EmployeEtablissementService();
         response.setContentType("application/json");
         Gson g = new Gson();
-        g.toJson(es.findById(Integer.parseInt(id)), response.getWriter());
+        g.toJson(ets.findbyEmployeId(Integer.parseInt(id)), response.getWriter());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

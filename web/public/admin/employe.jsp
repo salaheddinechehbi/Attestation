@@ -3,12 +3,18 @@
     Created on : 30 oct. 2018, 16:49:47
     Author     : Sinponzakra
 --%>
+<%@page import="java.util.Date"%>
+<%@page import="classes.EmployeEtablissement"%>
+<%@page import="service.EmployeEtablissementService"%>
+<%@page import="service.EtablissementService"%>
+<%@page import="classes.Etablissement"%>
 <%@page import="classes.Employe"%>
 <%@page import="service.EmployeService"%>
 <%@page import="classes.Region" %>
 <%@page import="service.RegionService" %>
 <%
-    EmployeService es = new EmployeService();
+    EmployeEtablissementService etss = new EmployeEtablissementService();
+    EtablissementService ets = new EtablissementService();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -71,7 +77,26 @@
                                             <label>Password :</label>
                                             <input class="form-control" type="text" name="password" id="password"/>                  
                                         </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Etablissement :</label>
+                                            <select class="form-control" id="etab" name="etab">
+                                                <option selected disabled>Sélectionnez l'établissement</option>
+                                                <% for(Etablissement e : ets.findAll() ){ %>
+                                                <option value="<%=e.getId()%>" ><%=e.getNom()%></option>
+                                                <% } %>
+                                            </select>                 
+                                        </div>    
                                         </div>
+                                         <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Date Début :</label>
+                                            <input class="form-control" type="date" name="dated" id="dated"/>                  
+                                        </div>
+                                             <div hidden id="datef_container" class="form-group col-md-4">
+                                            <label>Date Fin :</label>
+                                            <input class="form-control" type="date" name="datef" id="datef"/>                  
+                                            </div>    
+                                        </div>    
                                         <div class="form-group col-md-4">
                                             <button id="save" class="btn btn-success">Ajouter</button>                    
                                         </div>
@@ -95,20 +120,31 @@
                                                     <th>Email</th>
                                                     <th>Fonction</th>
                                                     <th>Password</th>
+                                                    <th>Etablissement</th>
+                                                    <th>Date Début</th>
+                                                    <th>Date Fin</th>
                                                     <th>Modifier</th>
                                                     <th>Supprimer</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="container">
-                                                <% for (Employe e : es.findAll()) {%>
+                                                <% for (EmployeEtablissement et : etss.findAll()) {
+                                                   String df = "-------------";
+                                                   if(et.getDateFin() != null){
+                                                       df = et.getDateFin().toString();
+                                                   }
+                                                %>
                                                 <tr>
-                                                    <td><%= e.getNom()%></td>
-                                                    <td><%= e.getPrenom()%></td>
-                                                    <td><%= e.getEmail()%></td>
-                                                    <td><%= e.getFonction()%></td>
-                                                    <td><%= e.getPassword()%></td>
-                                                    <td><Button  class="btn btn-info updateR" v="<%= e.getId()%>">Modifier</Button></td>
-                                                    <td><Button  class="btn btn-danger deleteR" v="<%= e.getId()%>">Supprimer</Button></td>
+                                                    <td><%= et.getEmploye().getNom() %></td>
+                                                    <td><%= et.getEmploye().getPrenom()%></td>
+                                                    <td><%= et.getEmploye().getEmail()%></td>
+                                                    <td><%= et.getEmploye().getFonction()%></td>
+                                                    <td><%= et.getEmploye().getPassword()%></td>
+                                                    <td><%= et.getEtablissement().getNom() %></td>
+                                                    <td><%= et.getId().getDateDebut() %></td>
+                                                    <td><%= df %></td>
+                                                    <td><Button  class="btn btn-info updateR" v="<%= et.getEmploye().getId()%>">Modifier</Button></td>
+                                                    <td><Button  class="btn btn-danger deleteR" v="<%= et.getEmploye().getId()%>">Supprimer</Button></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>

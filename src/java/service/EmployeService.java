@@ -25,6 +25,16 @@ public class EmployeService implements IDao<Employe>{
         session.getTransaction().commit();
         session.close();
     }
+    
+    public int createWithIdFeedBack(Employe o){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(o);
+        session.getTransaction().commit();
+        session.close();
+        
+        return o.getId();
+    }
 
     @Override
     public void delete(Employe o) {
@@ -66,4 +76,13 @@ public class EmployeService implements IDao<Employe>{
         return r;
     }
     
+     public List<Object[]> findAllJoinned() {
+        List<Object[]> employes = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        employes = session.createQuery("SELECT e,et From Employe e,EmployeEtablissement et WHERE e.id = et.employe.id ").list();
+        session.getTransaction().commit();
+        session.close();
+        return employes;
+    }
 }

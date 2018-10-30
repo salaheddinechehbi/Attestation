@@ -66,4 +66,14 @@ public class EmployeEtablissementService implements IDao<EmployeEtablissement>{
         return r;
     }
     
+      public EmployeEtablissement findbyEmployeId(int id){
+        EmployeEtablissement r = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        r = (EmployeEtablissement) session.createQuery("SELECT e FROM EmployeEtablissement e WHERE e.employe.id = ?").setParameter(0, id).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return r;
+    }
+    
 }
