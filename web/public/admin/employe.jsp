@@ -48,6 +48,7 @@
                                     </div>
                                     <input id="operation" type="hidden" name="operation" value="add" v="" />
                                     <div class="card-body p-0 pb-3">
+                                        <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Nom :</label>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
@@ -57,18 +58,20 @@
                                             <input class="form-control" type="text" name="prenom" id="prenom"/>                  
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label>Email :</label>
-                                            <input class="form-control" type="text" name="email" id="email"/>                  
-                                        </div>
-                                        <div class="form-group col-md-4">
                                             <label>Fonction :</label>
                                             <input class="form-control" type="text" name="fonction" id="fonction"/>                  
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Email :</label>
+                                            <input class="form-control" type="text" name="email" id="email"/>                  
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Password :</label>
                                             <input class="form-control" type="text" name="password" id="password"/>                  
                                         </div>
-
+                                        </div>
                                         <div class="form-group col-md-4">
                                             <button id="save" class="btn btn-success">Ajouter</button>                    
                                         </div>
