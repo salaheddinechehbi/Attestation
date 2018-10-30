@@ -63,7 +63,7 @@
                                     <div class="card-header border-bottom">
                                         <h6 class="m-0">Liste Région</h6>
                                     </div>
-                                    <div class="card-body p-0 pb-3" id="ttable">
+                                    <div class="card-body p-0 pb-3" id="divtable">
                                         <table class="table mb-0" id="regTable">
                                             <thead class="bg-light">
                                                 <tr>

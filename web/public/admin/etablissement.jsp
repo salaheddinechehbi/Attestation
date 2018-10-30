@@ -4,10 +4,13 @@
     Author     : salah
 --%>
 
+<%@page import="classes.Etablissement"%>
 <%@page import="classes.Region" %>
 <%@page import="service.RegionService" %>
+<%@page import="service.EtablissementService" %>
 <%
     RegionService rs = new RegionService();
+    EtablissementService es = new EtablissementService();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +20,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Régions</title>
         <%@include file="includes/header_scripts.jsp" %>
+        <link href="includes/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body class="h-100">
         <div class="container-fluid">
@@ -46,17 +50,33 @@
                                         <h6 class="m-0">Ajouter Région</h6>
                                     </div>
                                     <div class="card-body p-0 pb-3">
-                                        <div class="form-group col-md-4">
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3">
                                             <label>Nom :</label>
-                                            <link href="includes/style.css" rel="stylesheet" type="text/css"/>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
-                                            <select class="form-control" name="etab" id="etab">
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                            <label>Type :</label>
+                                            <select class="form-control" name="type" id="type">
+                                                <option selected disabled>Sélectionnez Type</option>
+                                                <option value="public">Public</option>
+                                                <option value="prive">Privé</option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                            <label>Région :</label>
+                                            <select class="form-control" name="region" id="region">
+                                                <option selected disabled>Sélectionnez la Région</option>
                                                 <% for (Region r : rs.findAll()) {%>
                                                 <option value="<%= r.getId() %>"><%= r.getNom() %></option>
                                                 <% }%>
                                             </select>
-                                            <input style="margin-top: 20px" type="button" value="Ajouter" id="saveReg" name="saveEtab" onclick="addEtab()" class="btn btn-success"/>   
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                             <input style="margin-top: 30px" type="button" value="Ajouter" id="saveEtab" name="saveEtab" class="btn btn-success saveEtab"/>   
                                              <input type="hidden" name="etablissement" id="etablissement" value="" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -69,18 +89,27 @@
                                     <div class="card-header border-bottom">
                                         <h6 class="m-0">Liste Région</h6>
                                     </div>
-                                    <div class="card-body p-0 pb-3">
+                                    <div class="card-body p-0 pb-3" id="divtable">
                                         <table class="table mb-0" id="etabTable">
                                             <thead class="bg-light">
                                                 <tr>
                                                     <th>Nom</th>
+                                                    <th>Type</th>
                                                     <th>Région</th>
                                                     <th>Modifier</th>
                                                     <th>Supprimer</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                 
+                                            <tbody id="tbody">
+                                                <% for(Etablissement e : es.findAll()){ %>
+                                                <tr>
+                                                    <td><%= e.getNom() %></td>
+                                                    <td><%= e.getType() %></td>
+                                                    <td><%= e.getRegion().getNom() %></td>
+                                                    <td><Button  class="btn btn-info updateE" id="updateE"  v="<%= e.getId()%>">Modifier</Button></td>
+                                                    <td><Button  class="btn btn-danger deleteE" id="deleteE" onclick="deleteEtab(<%= e.getId()%>)" v="<%= e.getId()%>">Supprimer</Button></td>
+                                                </tr>
+                                                <% } %>
                                             </tbody>
                                         </table>
                                     </div>

@@ -66,4 +66,14 @@ public class EtablissementService implements IDao<Etablissement>{
         return e;
     }
     
+     public List<Object[]> findEtabReg() {
+        List<Object[]> etablissements = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        etablissements = session.createQuery("Select e,r From Etablissement e,Region r where e.region.id=r.id").list();
+        session.getTransaction().commit();
+        session.close();
+        return etablissements;
+    }
+    
 }

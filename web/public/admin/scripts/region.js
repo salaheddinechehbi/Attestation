@@ -25,7 +25,6 @@ function addRegion(){
                swal("Bien Modifier!", "", "success");
                $("#region").val("Ajouter");
            }
-            init();
        }
     });
 }
