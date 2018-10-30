@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    $("#regTable").dataTable();
 
     $('#container').on('click', '.updateR', function () {
         var id = $(this).attr("v");
@@ -93,6 +94,7 @@ $(document).ready(function () {
                 $("#operation").val("add");
                 $("#operation").attr("v");
                 $('#datef_container').attr("hidden",true);
+                swal("Bien Ajouté!", "", "success");
             },
             error: function (errorThrown) {
                 console.log("erreur");

@@ -13,6 +13,7 @@ $(document).ready(function () {
             data: {nom: nom, type: type, region: reg},
             success: function (response) {
                 display(response);
+                swal("Bien Ajouté!", "", "success");
             }
         });
     });

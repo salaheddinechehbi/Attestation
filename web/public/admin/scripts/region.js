@@ -12,7 +12,6 @@ function addRegion(){
     var nom = $("#nom").val();
     var btn = $("#saveReg").val();
     var id = $("#region").val();
-    console.log(id);
     $.ajax({
        url:'../../AddRegion',
        data:{nom:nom,id:id,btn:btn},

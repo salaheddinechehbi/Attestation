@@ -55,29 +55,19 @@
                                     <input id="operation" type="hidden" name="operation" value="add" v="" />
                                     <div class="card-body p-0 pb-3">
                                         <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <label>Nom :</label>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <label>Prenom :</label>
                                             <input class="form-control" type="text" name="prenom" id="prenom"/>                  
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-3">
                                             <label>Fonction :</label>
                                             <input class="form-control" type="text" name="fonction" id="fonction"/>                  
                                         </div>
-                                        </div>
-                                        <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Email :</label>
-                                            <input class="form-control" type="text" name="email" id="email"/>                  
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label>Password :</label>
-                                            <input class="form-control" type="text" name="password" id="password"/>                  
-                                        </div>
-                                        <div class="form-group col-md-4">
+                                         <div class="form-group col-md-3">
                                             <label>Etablissement :</label>
                                             <select class="form-control" id="etab" name="etab">
                                                 <option selected disabled>Sélectionnez l'établissement</option>
@@ -85,18 +75,26 @@
                                                 <option value="<%=e.getId()%>" ><%=e.getNom()%></option>
                                                 <% } %>
                                             </select>                 
-                                        </div>    
+                                        </div>  
                                         </div>
-                                         <div class="form-row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label>Email :</label>
+                                            <input class="form-control" type="text" name="email" id="email"/>                  
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label>Password :</label>
+                                            <input class="form-control" type="text" name="password" id="password"/>                  
+                                        </div>
+                                         <div class="form-group col-md-3">
                                             <label>Date Début :</label>
                                             <input class="form-control" type="date" name="dated" id="dated"/>                  
                                         </div>
-                                             <div hidden id="datef_container" class="form-group col-md-4">
+                                             <div hidden id="datef_container" class="form-group col-md-3">
                                             <label>Date Fin :</label>
                                             <input class="form-control" type="date" name="datef" id="datef"/>                  
-                                            </div>    
-                                        </div>    
+                                            </div> 
+                                        </div>   
                                         <div class="form-group col-md-4">
                                             <button id="save" class="btn btn-success">Ajouter</button>                    
                                         </div>
@@ -112,7 +110,7 @@
                                         <h6 class="m-0">Liste Région</h6>
                                     </div>
                                     <div class="card-body p-0 pb-3" id="ttable">
-                                        <table class="table mb-0" id="regTable">
+                                        <table class="table mb-0" id="empTable">
                                             <thead class="bg-light">
                                                 <tr>
                                                     <th>Nom</th>
