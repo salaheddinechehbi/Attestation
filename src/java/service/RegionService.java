@@ -66,4 +66,14 @@ public class RegionService implements IDao<Region>{
         return r;
     }
     
+    public int countRegion() {
+        int l = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        l = Integer.parseInt(session.createQuery("Select count(*) From Region ").uniqueResult().toString());
+        session.getTransaction().commit();
+        session.close();
+        return l;
+    }
+    
 }

@@ -85,4 +85,24 @@ public class EmployeService implements IDao<Employe>{
         session.close();
         return employes;
     }
+     
+     public int login(String pass,String fonction) {
+        int l = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        l = Integer.parseInt(session.createQuery("Select count(*) From Employe where password=:pass and fonction=:fonction").setParameter("pass", pass).setParameter("fonction", fonction).uniqueResult().toString());
+        session.getTransaction().commit();
+        session.close();
+        return l;
+    }
+     
+     public int countEmploye() {
+        int l = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        l = Integer.parseInt(session.createQuery("Select count(*) From Employe ").uniqueResult().toString());
+        session.getTransaction().commit();
+        session.close();
+        return l;
+    }
 }

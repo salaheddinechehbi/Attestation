@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import service.EmployeService;
 
 /**
  *
@@ -35,7 +36,24 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            response.sendRedirect("public/admin/index.jsp"); 
+            String fonction = request.getParameter("fonction");
+            String email = request.getParameter("email");
+            String pass = request.getParameter("pass");
+            EmployeService es = new EmployeService();
+            int c = es.login(pass, fonction);
+            //out.write("Nbr des employe est : " + c);
+            if(fonction.equals("admin")){
+                if(c>0){
+                    response.sendRedirect("public/admin/index.jsp");
+                }
+            }else if(fonction.equals("employe")){
+                if(c>0){
+                    response.sendRedirect("public/employe/index.jsp");
+                }
+            }else{
+                response.sendRedirect("index.jsp");
+            }
+             
         }
     }
 
