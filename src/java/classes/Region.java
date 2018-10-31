@@ -20,13 +20,22 @@ public class Region {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nom;
+    private String code;
 
-    public Region(int id, String nom) {
-        this.id = id;
+    public Region(String nom, String code) {
         this.nom = nom;
+        this.code = code;
+    }
+    
+    public Region() {
     }
 
-    public Region() {
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Region(String nom) {
