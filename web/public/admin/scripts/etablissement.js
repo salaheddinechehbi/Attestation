@@ -17,33 +17,29 @@ $(document).ready(function () {
             }
         });
     });
-
-//    $('#tbody').on('click', '.deleteE', function () {
-//       var id = $(this).attr("v");
-//       swal({
-//            title: "Voulez-vous vraiment le supprimer?", text: "Une fois supprimer,vous pouvez pas le recuperer!",
-//            icon: "warning", buttons: true, dangerMode: true,
-//        }).then((willDelete) => {
-//            if (willDelete) {
-//                $.ajax({
-//                    url: "../../DeleteEtablissement",
-//                    type: 'POST',
-//                    data: {id: id},
-//                    success: function (response) {
-//                        display(response);
-//                    },
-//                    error: function (errorThrown) {
-//                        console.log("erreur");
-//                    }
-//                });
-//            }
-//        });
-//       
-//    });
-
-
-
 });
+
+function deleteEtab(id) {
+    swal({
+        title: "Voulez-vous vraiment le supprimer?", text: "Une fois supprimer,vous pouvez pas le recuperer!",
+        icon: "warning", buttons: true, dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "../../DeleteEtablissement",
+                type: 'POST',
+                data: {id: id},
+                success: function (response) {
+                    display(response);
+                },
+                error: function (errorThrown) {
+                    console.log("erreur");
+                }
+            });
+        }
+    });
+}
+
 function display(response) {
     let row = "";
     row += '<table class="table mb-0" id="etabTable"><thead class="bg-light"><tr><th>Nom</th><th>Type</th><th>Région</th><th>Modifier</th><th>Supprimer</th></tr></thead><tbody id="tbody">';
@@ -66,26 +62,7 @@ function init() {
     $("#saveEtab").val("Ajouter");
 }
 
-function deleteEtab(id) {
-    swal({
-        title: "Voulez-vous vraiment le supprimer?", text: "Une fois supprimer,vous pouvez pas le recuperer!",
-        icon: "warning", buttons: true, dangerMode: true,
-    }).then((willDelete) => {
-        if (willDelete) {
-            $.ajax({
-                url: "../../DeleteEtablissement",
-                type: 'POST',
-                data: {id: id},
-                success: function (response) {
-                    display(response);
-                },
-                error: function (errorThrown) {
-                    console.log("erreur");
-                }
-            });
-        }
-    });
-}
+
 
 
 

@@ -17,6 +17,7 @@ function addRegion(){
        data:{nom:nom,id:id,btn:btn},
        type:'POST',
        success: function(response){
+           console.log(response);
            display(response);
            if(btn == "Ajouter"){
                swal("Bien Ajouté!", "", "success");
@@ -47,7 +48,6 @@ function deleteRegion(id) {
 }
 
 function display(response){
-    let tbody = $("#ttable");
     var row = ""; 
     row += '<table class="table mb-0" id="regTable"><thead class="bg-light"><tr><th>Nom</th><th>Modifier</th><th>Supprimer</th></tr></thead><tbody>';
     for(var i=0;i<response.length;i++){
@@ -58,8 +58,8 @@ function display(response){
         row += '</tr>';
     }
     row += '</tbody></table>';
-    tbody.empty();
-    tbody.html(row);
+    $("#divtable").empty();
+    $("#divtable").html(row);
     $("#regTable").dataTable();
     init();
 }

@@ -14,7 +14,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Régions</title>
+        <title>G-Régions</title>
         <%@include file="includes/header_scripts.jsp" %>
     </head>
     <body class="h-100">

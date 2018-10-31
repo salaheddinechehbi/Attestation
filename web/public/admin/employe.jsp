@@ -22,7 +22,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Employes</title>
+        <title>G-Employes</title>
         <link href="includes/style.css" rel="stylesheet" type="text/css"/>
         <%@include file="includes/header_scripts.jsp" %>
     </head>

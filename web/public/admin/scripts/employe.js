@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-    $("#regTable").dataTable();
+    $("#empTable").dataTable();
 
     $('#container').on('click', '.updateR', function () {
         var id = $(this).attr("v");
         var etab = $('#etab')[0];
         $.ajax({
             url: "../../LoadEmploye",
-            type: 'GET',
+            type: 'POST',
             data: {id: id},
             success: function (data) {
                 $("#nom").val(data.employe.nom);

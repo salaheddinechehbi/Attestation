@@ -18,7 +18,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Régions</title>
+        <title>G-Etablissements</title>
         <%@include file="includes/header_scripts.jsp" %>
         <link href="includes/style.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -106,8 +106,8 @@
                                                     <td><%= e.getNom() %></td>
                                                     <td><%= e.getType() %></td>
                                                     <td><%= e.getRegion().getNom() %></td>
-                                                    <td><Button  class="btn btn-info updateE" id="updateE"  v="<%= e.getId()%>">Modifier</Button></td>
-                                                    <td><Button  class="btn btn-danger deleteE" id="deleteE" onclick="deleteEtab(<%= e.getId()%>)" v="<%= e.getId()%>">Supprimer</Button></td>
+                                                    <td><Button  class="btn btn-info updateE" v="<%= e.getId()%>">Modifier</Button></td>
+                                                    <td><Button  class="btn btn-danger deleteE" onclick="deleteEtab(<%= e.getId()%>)" v="<%= e.getId()%>">Supprimer</Button></td>
                                                 </tr>
                                                 <% } %>
                                             </tbody>
