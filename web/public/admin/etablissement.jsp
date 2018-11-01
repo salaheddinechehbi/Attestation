@@ -9,6 +9,13 @@
 <%@page import="service.RegionService" %>
 <%@page import="service.EtablissementService" %>
 <%
+    response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma", "no-cache");//HTTP 1.0
+    response.setHeader("Expires", "0");
+    
+    if(session.getAttribute("umail")==null){
+        response.sendRedirect("../../index.html");
+    }
     RegionService rs = new RegionService();
     EtablissementService es = new EtablissementService();
 %>
@@ -51,7 +58,7 @@
                                     </div>
                                     <div class="card-body p-0 pb-3">
                                         
-                                        <div class="form-row">
+                                        <div class="form-row col-12">
                                             <div class="form-group col-md-3">
                                             <label>Nom :</label>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
@@ -106,7 +113,7 @@
                                                     <td><%= e.getNom() %></td>
                                                     <td><%= e.getType() %></td>
                                                     <td><%= e.getRegion().getNom() %></td>
-                                                    <td><Button  class="btn btn-info updateE" v="<%= e.getId()%>">Modifier</Button></td>
+                                                    <td><Button  class="btn btn-info" onclick="updateEtab(<%= e.getId()%>)" v="<%= e.getId()%>">Modifier</Button></td>
                                                     <td><Button  class="btn btn-danger deleteE" onclick="deleteEtab(<%= e.getId()%>)" v="<%= e.getId()%>">Supprimer</Button></td>
                                                 </tr>
                                                 <% } %>

@@ -5,8 +5,6 @@
  */
 package controller;
 
-import classes.Etablissement;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,15 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.EtablissementService;
-import service.RegionService;
 
 /**
  *
  * @author salah
  */
-@WebServlet(name = "AddEtablissement", urlPatterns = {"/AddEtablissement"})
-public class AddEtablissement extends HttpServlet {
+@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
+public class NewServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +31,18 @@ public class AddEtablissement extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String nom = request.getParameter("nom");
-            String btn = request.getParameter("btn");
-            String type = request.getParameter("type");
-            int r = Integer.parseInt(request.getParameter("region"));
-            RegionService rs = new RegionService();
-            EtablissementService es = new EtablissementService();
-            if(btn.equals("Ajouter")){
-               es.create(new Etablissement(nom, type, rs.findById(r))); 
-            }else if(btn.equals("Modifier")){
-                int et = Integer.parseInt(request.getParameter("etab"));
-                Etablissement e = es.findById(et);
-                e.setNom(nom);
-                e.setType(type);
-                e.setRegion(rs.findById(r));
-                es.update(e);
-            }
-            
-            Gson gs = new Gson();
-            out.write(gs.toJson(es.findEtabReg()));
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet NewServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

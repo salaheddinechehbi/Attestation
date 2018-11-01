@@ -13,6 +13,10 @@
 <%@page import="classes.Region" %>
 <%@page import="service.RegionService" %>
 <%
+    response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma", "no-cache");//HTTP 1.0
+    response.setHeader("Expires", "0");
+    
     EmployeEtablissementService etss = new EmployeEtablissementService();
     EtablissementService ets = new EtablissementService();
 %>
@@ -54,7 +58,7 @@
                                     </div>
                                     <input id="operation" type="hidden" name="operation" value="add" v="" />
                                     <div class="card-body p-0 pb-3">
-                                        <div class="form-row">
+                                        <div class="form-row col-12">
                                         <div class="form-group col-md-3">
                                             <label>Nom :</label>
                                             <input class="form-control" type="text" name="nom" id="nom"/>
@@ -77,7 +81,7 @@
                                             </select>                 
                                         </div>  
                                         </div>
-                                        <div class="form-row">
+                                        <div class="form-row col-12">
                                         <div class="form-group col-md-3">
                                             <label>Email :</label>
                                             <input class="form-control" type="text" name="email" id="email"/>                  

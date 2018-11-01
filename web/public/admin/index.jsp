@@ -11,6 +11,13 @@
 <%@page import="service.EmployeService" %>
 <%@page import="service.EtudiantService" %>
 <%
+    response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma", "no-cache");//HTTP 1.0
+    response.setHeader("Expires", "0");
+    
+    if(session.getAttribute("umail")==null){
+        response.sendRedirect("../../index.html");
+    }
     EmployeService es = new EmployeService();
     EtablissementService ess = new EtablissementService();
     RegionService rs = new RegionService();
@@ -108,7 +115,7 @@
                             </div>
                         </div>
                         <!-- End Small Stats Blocks -->
-                        <div class="row col-md-13">
+                        <div class="row col-md-12">
                             <!-- Users Stats -->
                             <div class="col-md-4">
                                 <div class="card card-small">
@@ -143,6 +150,7 @@
                             </div>
                             <!-- End Users Stats -->
                         </div>
+                                               
                     </div>
                     <footer class="main-footer d-flex p-2 px-3 bg-white border-top">
                         <ul class="nav">
@@ -247,6 +255,7 @@
                     }
                     }
                 });
+                
             });
         </script>
     </body>

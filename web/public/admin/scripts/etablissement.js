@@ -5,19 +5,46 @@ $(document).ready(function () {
 
     $("#saveEtab").on('click', function () {
         let nom = $("#nom").val();
+        let btn = $("#saveEtab").val();
         let type = $("#type").val();
         let reg = $("#region").val();
+        let etab = $("#etablissement").val();
+        //console.log(nom+" "+etab+" "+type+" "+reg+" "+btn);
         $.ajax({
             url: '../../AddEtablissement',
             type: 'post',
-            data: {nom: nom, type: type, region: reg},
+            cache:false,
+            data: {nom: nom, type: type, region: reg,btn:btn,etab:etab},
             success: function (response) {
                 display(response);
-                swal("Bien Ajouté!", "", "success");
+                if(btn=="Ajouter"){
+                    swal("Bien Ajouté!", "", "success");
+                }else if(btn=="Modifier"){
+                    swal("Bien Modifier!", "", "success");
+                }
             }
         });
     });
+    
 });
+
+function updateEtab(id){
+    //alert("ok");
+    $.ajax({
+       url:'../../FetchEtablissement',
+       type:'POST',
+       cache:false,
+       data:{id:id},
+       success:function(response){
+           console.log(response);
+           $("#nom").val(response.nom);
+           $("#type").val(response.type);
+           $("#region").val(response.region.id); 
+           $("#saveEtab").val("Modifier");
+           $("#etablissement").val(""+id);
+       }
+    });
+}
 
 function deleteEtab(id) {
     swal({
@@ -47,7 +74,7 @@ function display(response) {
         row += '<tr><td>' + response[i][0].nom + '</td>'
         row += '<td>' + response[i][0].type + '</td>'
         row += '<td>' + response[i][1].nom + '</td>'
-        row += '<td><Button  class="btn btn-info updateE" id="updateE" v="' + response[i][0].id + '">Modifier</Button></td>'
+        row += '<td><Button  class="btn btn-info updateE" id="updateE" onclick="updateEtab('+ response[i][0].id +')" v="' + response[i][0].id + '">Modifier</Button></td>'
         row += '<td><Button  class="btn btn-danger deleteE" onclick="deleteEtab(' + response[i][0].id + ')" id="deleteE" v="' + response[i][0].id + '">Supprimer</Button></td></tr>'
     }
     row += '</tbody></table>';

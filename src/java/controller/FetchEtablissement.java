@@ -5,7 +5,6 @@
  */
 package controller;
 
-import classes.Etablissement;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import service.EtablissementService;
-import service.RegionService;
 
 /**
  *
  * @author salah
  */
-@WebServlet(name = "AddEtablissement", urlPatterns = {"/AddEtablissement"})
-public class AddEtablissement extends HttpServlet {
+@WebServlet(name = "FetchEtablissement", urlPatterns = {"/FetchEtablissement"})
+public class FetchEtablissement extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,25 +36,11 @@ public class AddEtablissement extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String nom = request.getParameter("nom");
-            String btn = request.getParameter("btn");
-            String type = request.getParameter("type");
-            int r = Integer.parseInt(request.getParameter("region"));
-            RegionService rs = new RegionService();
-            EtablissementService es = new EtablissementService();
-            if(btn.equals("Ajouter")){
-               es.create(new Etablissement(nom, type, rs.findById(r))); 
-            }else if(btn.equals("Modifier")){
-                int et = Integer.parseInt(request.getParameter("etab"));
-                Etablissement e = es.findById(et);
-                e.setNom(nom);
-                e.setType(type);
-                e.setRegion(rs.findById(r));
-                es.update(e);
-            }
             
+            int id = Integer.parseInt(request.getParameter("id"));
+            EtablissementService es = new EtablissementService();
             Gson gs = new Gson();
-            out.write(gs.toJson(es.findEtabReg()));
+            out.write(gs.toJson(es.findById(id)));
         }
     }
 
