@@ -6,6 +6,8 @@
 package test;
 
 
+import service.EmployeEtablissementService;
+import service.EmployeService;
 import util.HibernateUtil;
 
 /**
@@ -16,7 +18,6 @@ public class Program_test {
 
     public static void main(String[] args) {
         
-        HibernateUtil.getSessionFactory().openSession();
        
     }
 }

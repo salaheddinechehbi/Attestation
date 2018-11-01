@@ -201,7 +201,7 @@
                         mList2.add(ess.CountEtablissementByRegionName(s));
                     }
                 %>
-                let regions = <%=mList%>;
+                let regions = <%=mList1%>;
                 let etablissements = <%=mList2%>;
                 
                 let massPopChart = new Chart(myChart, {
@@ -209,7 +209,7 @@
                     data: {
                         labels: regions,
                         datasets: [{
-                                label: 'Etablissement',
+                                label: "nombre d'etablissement",
                                 data: etablissements,
                                 //backgroundColor:'green',
                                 backgroundColor: [
