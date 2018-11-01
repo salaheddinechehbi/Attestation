@@ -117,26 +117,7 @@
                         <!-- End Small Stats Blocks -->
                         <div class="row col-md-12">
                             <!-- Users Stats -->
-                            <div class="col-md-4">
-                                <div class="card card-small">
-                                    <div class="card-header border-bottom">
-                                        <h6 class="m-0">Etablissements</h6>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div>
-                                         <ul class="">
-                                             <% int count = 1;
-                                                 for(Region rg : rs.findAll()){ %>
-                                                 <li style="list-style-type:  decimal">
-                                            <span class="text-semibold text-fiord-blue"><%= " => "+rg.getNom() %></span>
-                                          </li>
-                                          <% count++; }%>
-                                         </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="card card-small">
                                     <div class="card-header border-bottom">
                                         <h6 class="m-0">Etablissements Par Région</h6>
@@ -205,7 +186,7 @@
                 let etablissements = <%=mList2%>;
                 
                 let massPopChart = new Chart(myChart, {
-                    type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                    type: 'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                     data: {
                         labels: regions,
                         datasets: [{
