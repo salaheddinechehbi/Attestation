@@ -1,4 +1,4 @@
-<%-- 
+س<%-- 
     Document   : region
     Created on : 28 oct. 2018, 22:49:47
     Author     : salah
@@ -15,7 +15,7 @@
     }
     RegionService rs = new RegionService();
 %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html class="no-js h-100" lang="en">
     <head>

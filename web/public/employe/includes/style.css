@@ -1,0 +1,12 @@
+#nom,#prenom,#fonction,#email,#password,#etab,#dated,#datef,#region,#type {
+    border: 1px solid;
+    border-color: #000;
+    margin-bottom: 20px;
+}
+#save{
+    margin-left: 130%;
+}
+
+.page-title{
+    text-align: center;
+}

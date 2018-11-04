@@ -86,21 +86,21 @@ public class EmployeService implements IDao<Employe>{
         return employes;
     }
      
-    public int login(String pass,String email) {
+    public int login(String email) {
         int l = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        l = Integer.parseInt(session.createQuery("Select count(*) From Employe where password=:pass and email=:email").setParameter("pass", pass).setParameter("email", email).uniqueResult().toString());
+        l = Integer.parseInt(session.createQuery("Select count(*) From Employe where email=:email").setParameter("email", email).uniqueResult().toString());
         session.getTransaction().commit();
         session.close();
         return l;
     }
     
-    public String getFonction(String pass,String email) {
+    public String getFonction(String email) {
         String l = "";
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        l = session.createQuery("Select fonction From Employe where password=:pass and email=:email").setParameter("pass", pass).setParameter("email", email).uniqueResult().toString();
+        l = session.createQuery("Select fonction From Employe where email=:email").setParameter("email", email).uniqueResult().toString();
         session.getTransaction().commit();
         session.close();
         return l;
@@ -111,6 +111,16 @@ public class EmployeService implements IDao<Employe>{
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         l = Integer.parseInt(session.createQuery("Select count(*) From Employe ").uniqueResult().toString());
+        session.getTransaction().commit();
+        session.close();
+        return l;
+    }
+    
+    public Employe findByEmail(String email) {
+        Employe l = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        l = (Employe) session.createQuery("From Employe where email=:email").setParameter("email", email).uniqueResult();
         session.getTransaction().commit();
         session.close();
         return l;

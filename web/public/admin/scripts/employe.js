@@ -1,7 +1,5 @@
 $(document).ready(function () {
-
-    $("#empTable").dataTable();
-
+    
     $('#container').on('click', '.updateR', function () {
         var id = $(this).attr("v");
         var etab = $('#etab')[0];

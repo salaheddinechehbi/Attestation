@@ -45,6 +45,16 @@
                   <span>Imprimer Attestation</span>
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link " href="employe.jsp">
+                  <span>Gestion Des Employes</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="importer.jsp">
+                  <span>Importé Des Etudiants</span>
+                </a>
+              </li>
             </ul>
           </div>
         </aside>

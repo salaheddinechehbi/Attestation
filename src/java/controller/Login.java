@@ -36,18 +36,17 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            //String fonction = request.getParameter("fonction");
+            
             String email = request.getParameter("email");
             String pass = request.getParameter("pass");
             EmployeService es = new EmployeService();
-            int c = es.login(pass, email);
+            int c = es.login(email);
             HttpSession session = request.getSession();
             if (c == 1) {
-                if (es.getFonction(pass, email).equals("admin")) {
+                if (es.getFonction(email).equals("admin")) {
                     session.setAttribute("umail", email);
                     response.sendRedirect("public/admin/index.jsp");
-                } else if (es.getFonction(pass, email).equals("employe")) {
+                } else if (es.getFonction(email).equals("employe")) {
                     session.setAttribute("umail", email);
                     response.sendRedirect("public/employe/index.jsp");
                 } else {
@@ -57,22 +56,6 @@ public class Login extends HttpServlet {
                 response.sendRedirect("index.html");
             }
             
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet NewServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet NewServlet at " + c + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-            
-            
-            
-            
-            
-
-
         }
     }
 

@@ -4,6 +4,21 @@
     Author     : salah
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="classes.Employe"%>
+<%@page import="service.EmployeService"%>
+<%
+    response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma", "no-cache");//HTTP 1.0
+    response.setHeader("Expires", "0");
+    String email = session.getAttribute("umail").toString();
+    if(session.getAttribute("umail")==null){response.sendRedirect("../../index.html");}
+    
+    EmployeService es = new EmployeService();
+    Employe emp = es.findByEmail(email);
+%>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,28 +55,12 @@
                             <div class="card card-small mb-4 pt-3">
                                 <div class="card-header border-bottom text-center">
                                     <div class="mb-3 mx-auto">
-                                        <img class="rounded-circle" src="../../images/avatars/0.jpg" alt="User Avatar" width="110"> </div>
-                                    <h4 class="mb-0">Sierra Brooks</h4>
-                                    <span class="text-muted d-block mb-2">Project Manager</span>
+                                        <img class="rounded-circle" src="../../images/avatars/1.jpg" alt="User Avatar" width="110"> </div>
+                                    <h4 class="mb-0" id="userName"><%= emp.getNom() +" " %><%= emp.getPrenom() %></h4>
+                                    <span class="text-muted d-block mb-2">Administrateur</span>
                                     <button type="button" class="mb-2 btn btn-sm btn-pill btn-outline-primary mr-2">
-                                        <i class="material-icons mr-1">person_add</i>Follow</button>
+                                        <i class="material-icons mr-1">person_img</i>Change</button>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item px-4">
-                                        <div class="progress-wrapper">
-                                            <strong class="text-muted d-block mb-2">Workload</strong>
-                                            <div class="progress progress-sm">
-                                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 74%;">
-                                                    <span class="progress-value">74%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item p-4">
-                                        <strong class="text-muted d-block mb-2">Description</strong>
-                                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</span>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -73,49 +72,27 @@
                                     <li class="list-group-item p-3">
                                         <div class="row">
                                             <div class="col">
-                                                <form>
+                                              
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="feFirstName">First Name</label>
-                                                            <input type="text" class="form-control" id="feFirstName" placeholder="First Name" value="Sierra"> </div>
+                                                            <label for="feFirstName">Nom</label>
+                                                            <input type="text" class="form-control" id="nomA" value="<%= emp.getNom() %>"> </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="feLastName">Last Name</label>
-                                                            <input type="text" class="form-control" id="feLastName" placeholder="Last Name" value="Brooks"> </div>
+                                                            <label for="feLastName">Prenom</label>
+                                                            <input type="text" class="form-control" id="prenomA" value="<%= emp.getPrenom() %>"> </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
                                                             <label for="feEmailAddress">Email</label>
-                                                            <input type="email" class="form-control" id="feEmailAddress" placeholder="Email" value="sierra@example.com"> </div>
+                                                            <input type="email" class="form-control" id="emailA" value="<%= emp.getEmail() %>"> </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="fePassword">Password</label>
-                                                            <input type="password" class="form-control" id="fePassword" placeholder="Password"> </div>
+                                                            <input type="password" class="form-control" id="passA" value="<%= emp.getPassword() %>"> </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="feInputAddress">Address</label>
-                                                        <input type="text" class="form-control" id="feInputAddress" placeholder="1234 Main St"> </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="feInputCity">City</label>
-                                                            <input type="text" class="form-control" id="feInputCity"> </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="feInputState">State</label>
-                                                            <select id="feInputState" class="form-control">
-                                                                <option selected>Choose...</option>
-                                                                <option>...</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-2">
-                                                            <label for="inputZip">Zip</label>
-                                                            <input type="text" class="form-control" id="inputZip"> </div>
-                                                    </div>
-                                                    <div class="form-row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="feDescription">Description</label>
-                                                            <textarea class="form-control" name="feDescription" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-accent">Update Account</button>
-                                                </form>
+                                                            <input type="hidden" class="form-control" id="idA"  value="<%= emp.getId() %>"> 
+                                                    
+                                                    <button id="updateA" class="btn btn-accent">Update Account</button>
+                                                
                                             </div>
                                         </div>
                                     </li>
@@ -130,5 +107,6 @@
         </div>
         </div>
         <%@include file="includes/footer_scripts.jsp" %>
+        <script src="scripts/profil.js" type="text/javascript"></script>      
     </body>
 </html>

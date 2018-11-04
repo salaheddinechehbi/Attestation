@@ -7,6 +7,7 @@ package service;
 
 import Dao.IDao;
 import classes.EmployeEtablissement;
+import classes.Etablissement;
 import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -66,7 +67,7 @@ public class EmployeEtablissementService implements IDao<EmployeEtablissement>{
         return r;
     }
     
-      public EmployeEtablissement findbyEmployeId(int id){
+    public EmployeEtablissement findbyEmployeId(int id){
         EmployeEtablissement r = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -74,6 +75,26 @@ public class EmployeEtablissementService implements IDao<EmployeEtablissement>{
         session.getTransaction().commit();
         session.close();
         return r;
+    }
+    
+    public EmployeEtablissement findbyEtablissementByEmail(String email){
+        EmployeEtablissement r = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        r = (EmployeEtablissement) session.createQuery("SELECT e FROM EmployeEtablissement e WHERE e.employe.email=? ").setParameter(0, email).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return r;
+    }
+    
+    public List<EmployeEtablissement> findEmployeByEtab(int id) {
+        List<EmployeEtablissement> employeetablissements = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        employeetablissements = session.createQuery("From EmployeEtablissement e WHERE e.etablissement.id=?").setParameter(0, id).list();
+        session.getTransaction().commit();
+        session.close();
+        return employeetablissements;
     }
     
 }

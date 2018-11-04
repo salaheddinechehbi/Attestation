@@ -159,6 +159,7 @@
             $(document).ready(function () {
                 //alert("ok");
                 let myChart = document.getElementById('etabRegChart').getContext('2d');
+               
                 // Global Options
                 Chart.defaults.global.defaultFontFamily = 'Lato';
                 Chart.defaults.global.defaultFontSize = 18;
@@ -209,6 +210,9 @@
                             }]
                     },
                     options: {
+                        legend:{
+                            position:'top'
+                        },
                         title: {
                             display: true,
                             text: 'Le nombre des Etablissements par Région',
