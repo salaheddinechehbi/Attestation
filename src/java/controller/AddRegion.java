@@ -49,6 +49,9 @@ public class AddRegion extends HttpServlet {
                 rs.update(r);
             }
             Gson gs = new Gson();
+            for(Region rrr : rs.findAll()){
+                System.out.println(rrr.getNom());
+            }
             out.write(gs.toJson(rs.findAll()));
         }
     }

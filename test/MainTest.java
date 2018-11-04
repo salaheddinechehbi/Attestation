@@ -6,10 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import service.EmployeService;
 import service.RegionService;
 import util.HibernateUtil;
@@ -30,22 +26,22 @@ public class MainTest {
         
        //HibernateUtil.getSessionFactory().openSession();
        
-       File excelfile = new File("ARCHIVES.xlsx");
-       FileInputStream ipt = new FileInputStream(excelfile);
-       XSSFWorkbook work = new XSSFWorkbook(ipt);
-       XSSFSheet sheet = work.getSheet("données");
-       Iterator<Row> itr = sheet.iterator();
-       while(itr.hasNext()){
-            Row row = itr.next();
-            Iterator<Cell> itcell = row.cellIterator();
-            while(itcell.hasNext()){
-                Cell cell = itcell.next();
-                System.out.print(cell.toString()+";");
-            }
-            System.out.println("");
-        }
-       work.close();
-       ipt.close();
+//       File excelfile = new File("ARCHIVES.xlsx");
+//       FileInputStream ipt = new FileInputStream(excelfile);
+//       XSSFWorkbook work = new XSSFWorkbook(ipt);
+//       XSSFSheet sheet = work.getSheet("données");
+//       Iterator<Row> itr = sheet.iterator();
+//       while(itr.hasNext()){
+//            Row row = itr.next();
+//            Iterator<Cell> itcell = row.cellIterator();
+//            while(itcell.hasNext()){
+//                Cell cell = itcell.next();
+//                System.out.print(cell.toString()+";");
+//            }
+//            System.out.println("");
+//        }
+//       work.close();
+//       ipt.close();
         
 //       EmployeService es = new EmployeService();
 //            Employe e = es.findById(2);
