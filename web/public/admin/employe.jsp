@@ -17,11 +17,12 @@
     response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");//HTTP 1.1
     response.setHeader("Pragma", "no-cache");//HTTP 1.0
     response.setHeader("Expires", "0");
-    if(session.getAttribute("umail")==null){
+    if (session.getAttribute("umail") == null) {
         response.sendRedirect("../../index.html");
     }
     EmployeEtablissementService etss = new EmployeEtablissementService();
     EtablissementService ets = new EtablissementService();
+    RegionService rs = new RegionService();
     Util util = new Util();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,44 +64,47 @@
                                     <input id="operation" type="hidden" name="operation" value="add" v="" />
                                     <div class="card-body p-0 pb-3">
                                         <div class="form-row col-12">
-                                        <div class="form-group col-md-3">
-                                            <label>Nom :</label>
-                                            <input class="form-control" type="text" name="nom" id="nom"/>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label>Prenom :</label>
-                                            <input class="form-control" type="text" name="prenom" id="prenom"/>                  
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label>Fonction :</label>
-                                            <input class="form-control" type="text" name="fonction" id="fonction"/>                  
-                                        </div>
-                                         <div class="form-group col-md-3">
-                                            <label>Etablissement :</label>
-                                            <select class="form-control" id="etab" name="etab">
-                                                <option selected disabled>Sélectionnez l'établissement</option>
-                                                <% for(Etablissement e : ets.findAll() ){ %>
-                                                <option value="<%=e.getId()%>" ><%=e.getNom()%></option>
-                                                <% } %>
-                                            </select>                 
-                                        </div>  
+                                            <div class="form-group col-md-3">
+                                                <label>Nom :</label>
+                                                <input class="form-control" type="text" name="nom" id="nom"/>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Prenom :</label>
+                                                <input class="form-control" type="text" name="prenom" id="prenom"/>                  
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Fonction :</label>
+                                                <input class="form-control" type="text" name="fonction" id="fonction"/>                  
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Région :</label>
+                                                <select class="form-control" id="region">
+                                                    <option selected disabled>Sélectionnez la région</option>
+                                                    <% for (Region r : rs.findAll()) {%>
+                                                    <option value="<%=r.getId()%>" ><%=r.getNom()%></option>
+                                                    <% } %>
+                                                </select>                 
+                                            </div> 
+                                            <div class="form-group col-md-3" id="etabs_container">
+
+                                            </div>  
                                         </div>
                                         <div class="form-row col-12">
-                                        <div class="form-group col-md-3">
-                                            <label>Email :</label>
-                                            <input class="form-control" type="text" name="email" id="email"/>                  
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label>Password :</label>
-                                            <input class="form-control" type="text" name="password" id="password"/>                  
-                                        </div>
-                                         <div class="form-group col-md-3">
-                                            <label>Date Début :</label>
-                                            <input class="form-control" type="date" name="dated" id="dated"/>                  
-                                        </div>
-                                             <div hidden id="datef_container" class="form-group col-md-3">
-                                            <label>Date Fin :</label>
-                                            <input class="form-control" type="date" name="datef" id="datef"/>                  
+                                            <div class="form-group col-md-3">
+                                                <label>Email :</label>
+                                                <input class="form-control" type="text" name="email" id="email"/>                  
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Password :</label>
+                                                <input class="form-control" type="text" name="password" id="password"/>                  
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Date Début :</label>
+                                                <input class="form-control" type="date" name="dated" id="dated"/>                  
+                                            </div>
+                                            <div hidden id="datef_container" class="form-group col-md-3">
+                                                <label>Date Fin :</label>
+                                                <input class="form-control" type="date" name="datef" id="datef"/>                  
                                             </div> 
                                         </div>   
                                         <div class="form-group col-md-4">
@@ -135,20 +139,20 @@
                                             </thead>
                                             <tbody id="container">
                                                 <% for (EmployeEtablissement et : etss.findAll()) {
-                                                   String df = "-------------";
-                                                   if(et.getDateFin() != null){
-                                                       df = et.getDateFin().toString();
-                                                   }
+                                                        String df = "-------------";
+                                                        if (et.getDateFin() != null) {
+                                                            df = et.getDateFin().toString();
+                                                        }
                                                 %>
                                                 <tr>
-                                                    <td><%= et.getEmploye().getNom() %></td>
+                                                    <td><%= et.getEmploye().getNom()%></td>
                                                     <td><%= et.getEmploye().getPrenom()%></td>
                                                     <td><%= et.getEmploye().getEmail()%></td>
                                                     <td><%= et.getEmploye().getFonction()%></td>
                                                     <td><%= et.getEmploye().getPassword()%></td>
-                                                    <td><%= et.getEtablissement().getNom() %></td>
-                                                    <td><%= et.getId().getDateDebut() %></td>
-                                                    <td><%= df %></td>
+                                                    <td><%= et.getEtablissement().getNom()%></td>
+                                                    <td><%= et.getId().getDateDebut()%></td>
+                                                    <td><%= df%></td>
                                                     <td><Button  class="btn btn-info updateR" v="<%= et.getEmploye().getId()%>">Modifier</Button></td>
                                                     <td><Button  class="btn btn-danger deleteR" v="<%= et.getEmploye().getId()%>">Supprimer</Button></td>
                                                 </tr>

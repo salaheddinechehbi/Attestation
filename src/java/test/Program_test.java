@@ -6,8 +6,11 @@
 package test;
 
 
+import classes.Etablissement;
 import service.EmployeEtablissementService;
 import service.EmployeService;
+import service.EtablissementService;
+import service.RegionService;
 import util.HibernateUtil;
 
 /**
@@ -18,6 +21,12 @@ public class Program_test {
 
     public static void main(String[] args) {
         
-       
+//        
+//        EtablissementService es = new EtablissementService();
+//        RegionService rs = new RegionService();
+//        
+//        for (Etablissement e : es.findEtabsByReg(rs.findById(3))){
+//            System.out.println(e.getId()+" :"+e.getNom());
+//        }
     }
 }

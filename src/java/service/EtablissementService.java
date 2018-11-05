@@ -7,6 +7,7 @@ package service;
 
 import Dao.IDao;
 import classes.Etablissement;
+import classes.Region;
 import java.util.List;
 import org.hibernate.Session;
 import util.HibernateUtil;
@@ -54,7 +55,7 @@ public class EtablissementService implements IDao<Etablissement>{
         session.close();
         return etablissements;
     }
-
+        
     @Override
     public Etablissement findById(int id) {
         Etablissement e = null;
@@ -64,6 +65,16 @@ public class EtablissementService implements IDao<Etablissement>{
         session.getTransaction().commit();
         session.close();
         return e;
+    }
+    
+     public List<Etablissement> findEtabsByReg(Region r) {
+        List<Etablissement> etablissements = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        etablissements = session.createQuery("select e From Etablissement e where e.region.id = ?").setParameter(0, r.getId()).list();
+        session.getTransaction().commit();
+        session.close();
+        return etablissements;
     }
     
      public List<Object[]> findEtabReg() {
@@ -95,5 +106,7 @@ public class EtablissementService implements IDao<Etablissement>{
         session.close(); 
         return nb;
     }
+     
+     
     
 }

@@ -1,11 +1,31 @@
 $(document).ready(function () {
-    
+
+
+    $('#region').change(function () {
+        var reg_id = $(this).val();
+
+        $.ajax({
+            url: "../../LoadEtabs",
+            type: "GET",
+            cache: false,
+            data: {id: reg_id},
+            success: function (data) {
+                $('#etabs_container').empty();
+                $('#etabs_container').html(remplirEtab(data));
+            }, error: function (textStatus) {
+                console.log("Ajax error : " + textStatus);
+            }
+        });
+    });
+
+
     $('#container').on('click', '.updateR', function () {
         var id = $(this).attr("v");
-        var etab = $('#etab')[0];
+        
         $.ajax({
             url: "../../LoadEmploye",
             type: 'POST',
+            cache: false,
             data: {id: id},
             success: function (data) {
                 $("#nom").val(data.employe.nom);
@@ -13,24 +33,43 @@ $(document).ready(function () {
                 $("#email").val(data.employe.email);
                 $('#fonction').val(data.employe.fonction);
                 $('#password').val(data.employe.password);
+                $('#region').val(data.etablissement.region.id);
+
+
+                $.ajax({
+                    url: "../../LoadEtabs",
+                    type: "GET",
+                    cache: false,
+                    data: {id: data.etablissement.region.id},
+                    success: function (dataX) {
+                        $('#etabs_container').empty();
+                        $('#etabs_container').html(remplirEtab(dataX));
+                        var etab = $('#etab')[0];
+                        for (var i = 0; i < etab.options.length; i++) {
+                            if (etab.options[i].text == data.etablissement.nom) {
+                                etab.options.selectedIndex = i;
+                                break;
+                            }
+                        }
+                    }, error: function (textStatus) {
+                        console.log("Ajax error : " + textStatus);
+                    }
+                });
+
+
+
                 var sd = (moment(new Date(data.id.dateDebut)).format('L')).split("/");
                 var dd = sd[2] + "-" + sd[0] + "-" + sd[1];
                 $('#dated').val(dd);
-                if(data.dateFin != undefined){
-                   var sf = (moment(new Date(data.dateFin)).format('L')).split("/");
-                   var df = sf[2] + "-" + sf[0] + "-" + sf[1];
-                   $("#datef").val(df);
-                }else{
-                   $("#datef").val(""); 
+                if (data.dateFin != undefined) {
+                    var sf = (moment(new Date(data.dateFin)).format('L')).split("/");
+                    var df = sf[2] + "-" + sf[0] + "-" + sf[1];
+                    $("#datef").val(df);
+                } else {
+                    $("#datef").val("");
                 }
                 $('#datef_container').removeAttr("hidden");
-                for(var i = 0; i < etab.options.length; i++){
-                    if(etab.options[i].text == data.etablissement.nom){
-                        etab.options.selectedIndex = i;
-                        break;
-                    }
-                }
-                
+
                 $("#save").html("Modifier");
                 $("#operation").val("update");
                 $("#operation").attr("v", id);
@@ -91,7 +130,7 @@ $(document).ready(function () {
                 $("#save").html("Ajouter");
                 $("#operation").val("add");
                 $("#operation").attr("v");
-                $('#datef_container').attr("hidden",true);
+                $('#datef_container').attr("hidden", true);
                 swal("Bien Ajouté!", "", "success");
             },
             error: function (errorThrown) {
@@ -118,13 +157,23 @@ $(document).ready(function () {
             var df = "-------------";
             var sd = (moment(new Date(data[i].id.dateDebut)).format('L')).split("/");
             var dd = sd[1] + "/" + sd[0] + "/" + sd[2];
-             if(data[i].dateFin != undefined){
+            if (data[i].dateFin != undefined) {
                 var sf = (moment(new Date(data[i].dateFin)).format('L')).split("/");
                 df = sf[1] + "/" + sf[0] + "/" + sf[2];
-             }
-            ligne += '<tr><td>' + data[i].employe.nom + '</td><td>' + data[i].employe.prenom + '</td><td>' + data[i].employe.email + '</td><td>' + data[i].employe.fonction + '</td><td>' + data[i].employe.password + '</td><td>'+data[i].etablissement.nom+'</td><td>'+dd+'</td><td>'+df+'</td><td><button class="btn btn-info updateR" v="' + data[i].employe.id + '">Modifier</button></td><td><button class="btn btn-danger deleteR" v="' + data[i].employe.id + '">Supprimer</button></td></tr>';
+            }
+            ligne += '<tr><td>' + data[i].employe.nom + '</td><td>' + data[i].employe.prenom + '</td><td>' + data[i].employe.email + '</td><td>' + data[i].employe.fonction + '</td><td>' + data[i].employe.password + '</td><td>' + data[i].etablissement.nom + '</td><td>' + dd + '</td><td>' + df + '</td><td><button class="btn btn-info updateR" v="' + data[i].employe.id + '">Modifier</button></td><td><button class="btn btn-danger deleteR" v="' + data[i].employe.id + '">Supprimer</button></td></tr>';
         }
         return ligne;
+    }
+
+    function remplirEtab(data) {
+        var ligne = '<label>Etablissement :</label> <select class="form-control" id="etab" name="etab"> <option selected disabled>Sélectionnez établissement</option>';
+        for (i = 0; i < data.length; i++) {
+            ligne += '<option value="' + data[i].id + '" >' + data[i].nom + '</option>';
+        }
+        ligne += ' </select> ';
+        return ligne;
+
     }
 
 });
