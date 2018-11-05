@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.EmployeEtablissementService;
 import service.EmployeService;
 import service.EtablissementService;
+import static util.Util.md5;
 
 /**
  *
@@ -39,49 +40,42 @@ public class AddEmploye extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String fonction = request.getParameter("fonction");
-        int etab_id = Integer.parseInt(request.getParameter("etab"));
-        String dated = request.getParameter("dated").replace("-", "/");
-        String datef = request.getParameter("datef").replace("-", "/");
-        Date df = null;
-        if(!datef.isEmpty()){
-            df = new Date(datef);
+        response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            String nom = request.getParameter("nom");
+            String prenom = request.getParameter("prenom");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String fonction = request.getParameter("fonction");
+            int etab_id = Integer.parseInt(request.getParameter("etab"));
+            String dated = request.getParameter("dated").replace("-", "/");
+            String datef = request.getParameter("datef").replace("-", "/");
+            Date df = null;
+            if (!datef.isEmpty()) {
+                df = new Date(datef);
+            }
+            String operation = request.getParameter("operation");
+            EmployeService es = new EmployeService();
+            EmployeEtablissementService ets = new EmployeEtablissementService();
+            EtablissementService ts = new EtablissementService();
+            if (operation.equals("add")) {
+                int emp_id = es.createWithIdFeedBack(new Employe(nom, prenom, email, fonction, md5(password)));
+                ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
+            } else if (operation.equals("update")) {
+                int emp_id = Integer.parseInt(request.getParameter("id"));
+                Employe e = es.findById(emp_id);
+                e.setNom(nom);
+                e.setPrenom(prenom);
+                e.setEmail(email);
+                e.setPassword(md5(password));
+                e.setFonction(fonction);
+                es.update(e);
+                ets.delete(ets.findbyEmployeId(emp_id));
+                ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
+            }
+            Gson g = new Gson();
+            out.write(g.toJson(ets.findAll()));
         }
-        
-        String operation = request.getParameter("operation");    
-
-        EmployeService  es = new EmployeService();
-        EmployeEtablissementService ets = new EmployeEtablissementService();
-        EtablissementService ts = new EtablissementService();
-        
-        System.out.println(operation);
-        if(operation.equals("add")){
-           int emp_id = es.createWithIdFeedBack(new Employe(nom, prenom, email,fonction,password));
-           ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
-            
-        }else if(operation.equals("update")){
-            int emp_id = Integer.parseInt(request.getParameter("id"));
-            Employe e = es.findById(emp_id);
-            e.setNom(nom);
-            e.setPrenom(prenom);
-            e.setEmail(email);
-            e.setPassword(password);
-            e.setFonction(fonction);
-            es.update(e);
-            ets.delete(ets.findbyEmployeId(emp_id));
-            ets.create(new EmployeEtablissement(new EmployeEtablissementPK(emp_id, etab_id, new Date(dated)), es.findById(emp_id), ts.findById(etab_id), df));
-
-            
-        }
-        response.setContentType("application/json");
-        Gson g = new Gson();
-        g.toJson(ets.findAll(), response.getWriter());
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -3,6 +3,7 @@
     Created on : 30 oct. 2018, 16:49:47
     Author     : Sinponzakra
 --%>
+<%@page import="util.Util"%>
 <%@page import="java.util.Date"%>
 <%@page import="classes.EmployeEtablissement"%>
 <%@page import="service.EmployeEtablissementService"%>
@@ -21,6 +22,7 @@
     }
     EmployeEtablissementService etss = new EmployeEtablissementService();
     EtablissementService ets = new EtablissementService();
+    Util util = new Util();
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

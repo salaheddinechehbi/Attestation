@@ -36,7 +36,6 @@ public class AddRegion extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
             String nom = request.getParameter("nom");
             String btn = request.getParameter("btn");
             RegionService rs = new RegionService();

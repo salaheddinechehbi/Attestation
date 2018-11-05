@@ -74,17 +74,15 @@
                                         <table class="table mb-0" id="regTable">
                                             <thead class="bg-light">
                                                 <tr>
-                                                    <th>Nom</th>
-                                                    <th>Modifier</th>
-                                                    <th>Supprimer</th>
+                                                    <th>Supprimer</th><th>Modifier</th><th>Nom</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tbody">
                                                 <% for (Region r : rs.findAll()) {%>
                                                 <tr>
+                                                    <td><Button onclick="deleteRegion(<%=r.getId()%>)" class="btn btn-danger deleteR" >حذف</Button></td>
+                                                    <td><Button onclick="updateRegion(<%=r.getId()%>, '<%= r.getNom()%>')" class="btn btn-info updateR" >تغيير</Button></td>
                                                     <td><%= r.getNom()%></td>
-                                                    <td><Button onclick="updateRegion(<%=r.getId()%>, '<%= r.getNom()%>')" class="btn btn-info updateR" >Modifier</Button></td>
-                                                    <td><Button onclick="deleteRegion(<%=r.getId()%>)" class="btn btn-danger deleteR" >Supprimer</Button></td>
                                                 </tr>
                                                 <% }%>
                                             </tbody>
